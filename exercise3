@@ -1,0 +1,26 @@
+use University;
+/*Q3*/
+select student.name,course.course_name,grade_report.grade from student
+join course join grade_report 
+where student.major=course.department and student.student_number= grade_report.student_number and student.name='smith'; 
+/*q4*/
+select student.name,grade_report.grade,course.course_name from student
+join grade_report on student.student_number= grade_report.student_number
+join section on grade_report.section_identifier = section.section_identifier
+join course on section.course_number=course.course_number
+where course.course_number='CS3380' and section.semester='fall' and section.syear='08';
+/*q5*/
+select prerequisite.prerequisite_number from prerequisite 
+join course on prerequisite.course_number=course.course_number where course_name='database';
+/*q6*/
+select name from student where major='cs';
+/*q7*/
+select course.course_name  from section join course where section.course_number=course.course_number and section.instructor='king' ;
+/*q8*/
+SELECT section.course_number,section.semester,section.syear,count(DISTINCT grade_report.student_number)
+FROM section INNER JOIN grade_report ON grade_report.section_identifier=section.section_identifier 
+WHERE section.instructor='king' GROUP BY grade_report.section_identifier;
+/*9*/
+SELECT student.name,course.course_name,course.course_number,course.credit_hours,section.semester,section.syear,grade_report.grade 
+FROM student INNER JOIN grade_report ON grade_report.student_number=student.student_number INNER JOIN section ON section.section_identifier=grade_report.section_identifier INNER JOIN course ON course.course_number=section.course_number
+WHERE student.class=4;
